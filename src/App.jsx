@@ -25,13 +25,13 @@ function App() {
     localStorage.setItem("inprogress", JSON.stringify(inprogress));
   }, [inprogress]);
 
-  const [completed, setCompleted] = useState(
-    () => JSON.parse(localStorage.getItem("completed")) || []
+  const [done, setDone] = useState(
+    () => JSON.parse(localStorage.getItem("done")) || []
   );
 
   useEffect(() => {
-    localStorage.setItem("completed", JSON.stringify(completed));
-  }, [completed]);
+    localStorage.setItem("done", JSON.stringify(done));
+  }, [done]);
   // const [input, setInput] = useState("");
 
   // function deleteTask(id) {
@@ -44,16 +44,6 @@ function App() {
   // function deleteTaskAll() {
   //   setTasks([]);
   // }
-
-  function checkTask(id) {
-    const newTasksCheck = tasks.map((task, index, array) => {
-      if (task.id === id) {
-        task.check = !task.check;
-      }
-      return task;
-    });
-    setTasks(newTasksCheck);
-  }
 
   function updateTask(id, body, onClose) {
     const info = body.trim();
@@ -70,7 +60,7 @@ function App() {
       return;
     }
 
-    const newTasksUpdate = tasks.map((task, index, array) => {
+    const newTasksUpdate = tasks.map((task) => {
       if (task.id === id) {
         task.body = body;
         task.check = false;
@@ -104,13 +94,13 @@ function App() {
   };
   const addtoCompleted = (id) => {
     const item = inprogress.find((x) => x.id === id);
-    setCompleted([item, ...completed]);
+    setDone([item, ...done]);
     const filterarray = inprogress.filter((x) => x.id !== id);
     setInprogress(filterarray);
   };
   const deleteDone = (id) => {
-    const filterarray = completed.filter((x) => x.id !== id);
-    setCompleted(filterarray);
+    const filterarray = done.filter((x) => x.id !== id);
+    setDone(filterarray);
   };
 
   useEffect(() => {}, [tasks, inprogress]);
@@ -126,7 +116,7 @@ function App() {
         <div className="todos_wrapper">
           <div className="todos_list">
             <h3 className="todo_title text-2xl pb-3">To-do List</h3>
-            {tasks.map((task, index) => (
+            {tasks.map((task) => (
               <div className="todo_card flex" key={task.id}>
                 <p className="card_text text-xl text-white p-6 texts">
                   {task.body}
@@ -156,40 +146,16 @@ function App() {
                     </button>
                   </ul>
                 </div>
-                {/* <hr />
-                <div className="space-x-12 inline-flex from-neutral-100 justify-around p-2 cursor-pointer">
-                  <MdDriveFileMoveOutline
-                    className="h-7 w-6  text-white rounded-lg "
-                    onClick={() => addToProgress(task.id)}
-                  />
-
-                  <UpdateTask task={task} updateTask={updateTask} />
-                  <RiDeleteBin5Line
-                    onClick={() => deleteTodo(task.id)}
-                    className="h-7 w-6  text-white rounded-lg cursor-pointer"
-                  />
-                </div> */}
               </div>
             ))}
           </div>
           <div className="todos_list">
             <h3 className="todo_title text-2xl pb-3">In-Progress</h3>
-            {inprogress.map((item, index) => (
+            {inprogress.map((item) => (
               <div className="progress_card flex" key={item.key}>
                 <p className="card_text text-white text-xl p-3 texts">
                   {item.body}
                 </p>
-                {/* <hr />
-                <div className="space-x-12 inline-flex justify-around pt-2">
-                  <MdDriveFileMoveOutline
-                    className="h-7 w-6  text-white rounded-lg cursor-pointer"
-                    onClick={() => addtoCompleted(item.id)}
-                  />
-                  <RiDeleteBin5Line
-                    onClick={() => deleteProgress(item.id)}
-                    className="h-7 w-6  text-white rounded-lg cursor-pointer"
-                  />
-                </div> */}
 
                 <div className="dropdown dropdown-left cursor-pointer">
                   <label tabIndex={0}>
@@ -220,16 +186,10 @@ function App() {
           </div>
           <div className="todos_list texts">
             <h3 className="todo_title text-2xl pb-3">Done</h3>
-            {completed.map((item, index) => (
+            {done.map((item) => (
               <div className="completed_card flex" key={item.id}>
                 <p className="card_text text-xl p-2 texts">{item.body}</p>
 
-                {/* <div className="space-x-12 inline-flex justify-around pt-2">
-                  <RiDeleteBin5Line
-                    onClick={() => deleteDone(item.id)}
-                    className="h-7 w-6  text-white rounded-lg cursor-pointer"
-                  />
-                </div> */}
                 {/* =================three dot ===================== */}
                 <div className="dropdown dropdown-left cursor-pointer text-black">
                   <label tabIndex={0}>
