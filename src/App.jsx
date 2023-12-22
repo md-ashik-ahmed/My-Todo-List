@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MdDriveFileMoveOutline } from "react-icons/md";
 import UpdateTask from "./component/UpdateTask";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 function App() {
   const [tasks, setTasks] = useState(
@@ -69,7 +70,7 @@ function App() {
       return;
     }
 
-    const newTasksUpdate = tasks.map((task, index) => {
+    const newTasksUpdate = tasks.map((task, index, array) => {
       if (task.id === id) {
         task.body = body;
         task.check = false;
@@ -126,10 +127,37 @@ function App() {
           <div className="todos_list">
             <h3 className="todo_title text-2xl pb-3">To-do List</h3>
             {tasks.map((task, index) => (
-              <div className="todo_card" key={task.id}>
-                <p className="card_text text-xl text-white p-3">{task.body}</p>
-                <hr />
-                <div className="space-x-12 inline-flex from-neutral-100 justify-around p-2">
+              <div className="todo_card flex" key={task.id}>
+                <p className="card_text text-xl text-white p-6 texts">
+                  {task.body}
+                </p>
+                <div className="dropdown dropdown-left cursor-pointer text-black ">
+                  <label tabIndex={0}>
+                    <BsThreeDotsVertical />
+                  </label>
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box cursor-pointer"
+                  >
+                    <button
+                      className="flex items-center gap-1 text-lg hover:bg-slate-200 w-full py-1 rounded-lg ps-2 font-semibold"
+                      onClick={() => addToProgress(task?.id)}
+                    >
+                      <MdDriveFileMoveOutline />
+                      Move
+                    </button>
+                    <UpdateTask task={task} updateTask={updateTask} />
+                    <button
+                      onClick={() => deleteTodo(task?.id)}
+                      className="flex items-center gap-1 text-lg hover:bg-slate-200 w-full py-1 rounded-lg ps-2 font-semibold"
+                    >
+                      <RiDeleteBin5Line />
+                      Delete
+                    </button>
+                  </ul>
+                </div>
+                {/* <hr />
+                <div className="space-x-12 inline-flex from-neutral-100 justify-around p-2 cursor-pointer">
                   <MdDriveFileMoveOutline
                     className="h-7 w-6  text-white rounded-lg "
                     onClick={() => addToProgress(task.id)}
@@ -138,42 +166,86 @@ function App() {
                   <UpdateTask task={task} updateTask={updateTask} />
                   <RiDeleteBin5Line
                     onClick={() => deleteTodo(task.id)}
-                    className="h-7 w-6  text-white rounded-lg "
+                    className="h-7 w-6  text-white rounded-lg cursor-pointer"
                   />
-                </div>
+                </div> */}
               </div>
             ))}
           </div>
           <div className="todos_list">
             <h3 className="todo_title text-2xl pb-3">In-Progress</h3>
             {inprogress.map((item, index) => (
-              <div className="progress_card" key={item.key}>
-                <p className="card_text text-white text-xl p-3">{item.body}</p>
-                <hr />
+              <div className="progress_card flex" key={item.key}>
+                <p className="card_text text-white text-xl p-3 texts">
+                  {item.body}
+                </p>
+                {/* <hr />
                 <div className="space-x-12 inline-flex justify-around pt-2">
                   <MdDriveFileMoveOutline
-                    className="h-7 w-6  text-white rounded-lg "
+                    className="h-7 w-6  text-white rounded-lg cursor-pointer"
                     onClick={() => addtoCompleted(item.id)}
                   />
                   <RiDeleteBin5Line
                     onClick={() => deleteProgress(item.id)}
-                    className="h-7 w-6  text-white rounded-lg "
+                    className="h-7 w-6  text-white rounded-lg cursor-pointer"
                   />
+                </div> */}
+
+                <div className="dropdown dropdown-left cursor-pointer">
+                  <label tabIndex={0}>
+                    <BsThreeDotsVertical />
+                  </label>
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box cursor-pointer"
+                  >
+                    <button
+                      className="flex items-center gap-1 text-lg hover:bg-slate-200 w-full py-1 rounded-lg ps-2 font-semibold"
+                      onClick={() => addtoCompleted(item?.id)}
+                    >
+                      <MdDriveFileMoveOutline />
+                      Move
+                    </button>
+                    <button
+                      onClick={() => deleteProgress(item?.id)}
+                      className="flex items-center gap-1 text-lg hover:bg-slate-200 w-full py-1 rounded-lg ps-2 font-semibold"
+                    >
+                      <RiDeleteBin5Line />
+                      Delete
+                    </button>
+                  </ul>
                 </div>
               </div>
             ))}
           </div>
-          <div className="todos_list">
+          <div className="todos_list texts">
             <h3 className="todo_title text-2xl pb-3">Done</h3>
             {completed.map((item, index) => (
-              <div className="completed_card" key={item.id}>
-                <p className="card_text text-xl p-2">{item.body}</p>
-                <hr />
-                <div className="space-x-12 inline-flex justify-around pt-2">
+              <div className="completed_card flex" key={item.id}>
+                <p className="card_text text-xl p-2 texts">{item.body}</p>
+
+                {/* <div className="space-x-12 inline-flex justify-around pt-2">
                   <RiDeleteBin5Line
                     onClick={() => deleteDone(item.id)}
-                    className="h-7 w-6  text-white rounded-lg "
+                    className="h-7 w-6  text-white rounded-lg cursor-pointer"
                   />
+                </div> */}
+                {/* =================three dot ===================== */}
+                <div className="dropdown dropdown-left cursor-pointer text-black">
+                  <label tabIndex={0}>
+                    <BsThreeDotsVertical />
+                  </label>
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box cursor-pointer"
+                  >
+                    <button
+                      onClick={() => deleteDone(item?.id)}
+                      className="flex items-center gap-1 text-lg hover:bg-slate-200 w-full py-1 rounded-lg ps-2 font-semibold"
+                    >
+                      <RiDeleteBin5Line />
+                    </button>
+                  </ul>
                 </div>
               </div>
             ))}

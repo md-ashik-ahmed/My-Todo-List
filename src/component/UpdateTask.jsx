@@ -16,13 +16,17 @@ function useToggle(initialState = false) {
 }
 
 function UpdateTask({ task, updateTask }) {
+  console.log(task);
   const [body, setBody] = useState("");
   const { onClose } = useToggle(false);
 
   return (
     <>
       <button onClick={() => document.getElementById("edit").showModal()}>
-        <FaRegEdit className="h-7 w-6  text-white rounded-lg " />
+        <div className="flex items-center gap-1 text-lg hover:bg-slate-200 w-full py-1 rounded-lg ps-2 font-semibold">
+          <FaRegEdit className="h-6 w-5  text-black rounded-lg cursor-pointer " />
+          Edit
+        </div>
       </button>
       <dialog id="edit" className="modal">
         <div className="modal-box text-center">
@@ -47,7 +51,7 @@ function UpdateTask({ task, updateTask }) {
               <form method="dialog">
                 <button
                   className="btn"
-                  onClick={() => updateTask(task.id, body, onClose)}
+                  onClick={() => updateTask(task?.id, body)}
                 >
                   Save
                 </button>

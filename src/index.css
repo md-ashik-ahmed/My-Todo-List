@@ -5,3 +5,11 @@
 ::-webkit-scrollbar {
   display: none;
 }
+/* 
+.texts {
+  overflow-wrap: break-word;
+} */
+
+.texts {
+  word-break: break-all;
+}
