@@ -22,7 +22,7 @@ function UpdateTask({ task, updateTask }) {
   return (
     <>
       <button onClick={() => document.getElementById("edit").showModal()}>
-        <FaRegEdit />
+        <FaRegEdit className="h-7 w-6  text-white rounded-lg " />
       </button>
       <dialog id="edit" className="modal">
         <div className="modal-box text-center">

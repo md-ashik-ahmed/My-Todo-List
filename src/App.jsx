@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { FaTrash, FaRegEdit } from "react-icons/fa";
+import { RiDeleteBin5Line } from "react-icons/ri";
 import AddTask from "./component/AddTask";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -33,16 +33,16 @@ function App() {
   }, [completed]);
   // const [input, setInput] = useState("");
 
-  function deleteTask(id) {
-    const newTasks = tasks.filter((task) => {
-      return task.id !== id;
-    });
-    setTasks(newTasks);
-  }
+  // function deleteTask(id) {
+  //   const newTasks = tasks.filter((task) => {
+  //     return task.id !== id;
+  //   });
+  //   setTasks(newTasks);
+  // }
 
-  function deleteTaskAll() {
-    setTasks([]);
-  }
+  // function deleteTaskAll() {
+  //   setTasks([]);
+  // }
 
   function checkTask(id) {
     const newTasksCheck = tasks.map((task, index, array) => {
@@ -69,7 +69,7 @@ function App() {
       return;
     }
 
-    const newTasksUpdate = tasks.map((task, index, array) => {
+    const newTasksUpdate = tasks.map((task, index) => {
       if (task.id === id) {
         task.body = body;
         task.check = false;
@@ -86,13 +86,6 @@ function App() {
     setTasks([task, ...tasks]);
   }
 
-  // const addTodo = () => {
-  //   const todo = {
-  //     id: Math.floor(Math.random() * 1000),
-  //     text: input,
-  //   };
-  //   setTodos([todo, ...todos]);
-  // };
   const addToProgress = (id) => {
     const item = tasks.find((x) => x.id === id);
     setInprogress([item, ...inprogress]);
@@ -122,64 +115,65 @@ function App() {
   useEffect(() => {}, [tasks, inprogress]);
 
   return (
-    <div className="App">
-      <div className="container">
+    <div className="App min-w-full h-screen">
+      <div className="container min-h-screen min-w-screen">
         <h3 className="title py-3">ToDo List App</h3>
         <div className="item-center justify-center px-auto">
           <AddTask addTask={addTask} />
         </div>
 
-        {/* <form className="form_todo">
-          <input
-            type="text"
-            placeholder="Enter your task"
-            className="input input-info input-bordered w-full max-w-xs"
-            onChange={(e) => setInput(e.target.value)}
-            // value={content}
-          />
-          <button type="button" className="btn" onClick={() => addTodo()}>
-            Add
-          </button>
-        </form> */}
         <div className="todos_wrapper">
           <div className="todos_list">
-            <h3 className="todo_title pb-3">To-do List</h3>
+            <h3 className="todo_title text-2xl pb-3">To-do List</h3>
             {tasks.map((task, index) => (
               <div className="todo_card" key={task.id}>
-                <p className="card_text text-black p-3">{task.body}</p>
+                <p className="card_text text-xl text-white p-3">{task.body}</p>
                 <hr />
-                <div className="space-x-12 inline-flex justify-around p-2">
+                <div className="space-x-12 inline-flex from-neutral-100 justify-around p-2">
                   <MdDriveFileMoveOutline
+                    className="h-7 w-6  text-white rounded-lg "
                     onClick={() => addToProgress(task.id)}
                   />
 
                   <UpdateTask task={task} updateTask={updateTask} />
-                  <FaTrash onClick={() => deleteTodo(task.id)} />
+                  <RiDeleteBin5Line
+                    onClick={() => deleteTodo(task.id)}
+                    className="h-7 w-6  text-white rounded-lg "
+                  />
                 </div>
               </div>
             ))}
           </div>
           <div className="todos_list">
-            <h3 className="todo_title pb-3">In-Progress</h3>
+            <h3 className="todo_title text-2xl pb-3">In-Progress</h3>
             {inprogress.map((item, index) => (
               <div className="progress_card" key={item.key}>
-                <p className="card_text p-3">{item.body}</p>
-                <div className="space-x-12 inline-flex justify-around">
+                <p className="card_text text-white text-xl p-3">{item.body}</p>
+                <hr />
+                <div className="space-x-12 inline-flex justify-around pt-2">
                   <MdDriveFileMoveOutline
+                    className="h-7 w-6  text-white rounded-lg "
                     onClick={() => addtoCompleted(item.id)}
                   />
-                  <FaTrash onClick={() => deleteProgress(item.id)} />
+                  <RiDeleteBin5Line
+                    onClick={() => deleteProgress(item.id)}
+                    className="h-7 w-6  text-white rounded-lg "
+                  />
                 </div>
               </div>
             ))}
           </div>
           <div className="todos_list">
-            <h3 className="todo_title pb-3">Done</h3>
+            <h3 className="todo_title text-2xl pb-3">Done</h3>
             {completed.map((item, index) => (
               <div className="completed_card" key={item.id}>
-                <p className="card_text p-2">{item.body}</p>
-                <div className="space-x-12 inline-flex justify-around">
-                  <FaTrash onClick={() => deleteDone(item.id)} />
+                <p className="card_text text-xl p-2">{item.body}</p>
+                <hr />
+                <div className="space-x-12 inline-flex justify-around pt-2">
+                  <RiDeleteBin5Line
+                    onClick={() => deleteDone(item.id)}
+                    className="h-7 w-6  text-white rounded-lg "
+                  />
                 </div>
               </div>
             ))}
