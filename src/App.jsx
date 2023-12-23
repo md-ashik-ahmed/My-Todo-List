@@ -32,18 +32,6 @@ function App() {
   useEffect(() => {
     localStorage.setItem("done", JSON.stringify(done));
   }, [done]);
-  // const [input, setInput] = useState("");
-
-  // function deleteTask(id) {
-  //   const newTasks = tasks.filter((task) => {
-  //     return task.id !== id;
-  //   });
-  //   setTasks(newTasks);
-  // }
-
-  // function deleteTaskAll() {
-  //   setTasks([]);
-  // }
 
   function updateTask(id, body, onClose) {
     const info = body.trim();
@@ -118,10 +106,11 @@ function App() {
             <h3 className="todo_title text-2xl pb-3">To-do List</h3>
             {tasks.map((task) => (
               <div className="todo_card flex" key={task.id}>
-                <p className="card_text text-xl text-white p-6 texts">
+                <p className="card_text text-xl text-white p-3 texts">
                   {task.body}
                 </p>
-                <div className="dropdown dropdown-left cursor-pointer text-black ">
+                {/* =================three dot ===================== */}
+                <div className="dropdown dropdown-left cursor-pointer text-black pt-2">
                   <label tabIndex={0}>
                     <BsThreeDotsVertical />
                   </label>
@@ -156,8 +145,8 @@ function App() {
                 <p className="card_text text-white text-xl p-3 texts">
                   {item.body}
                 </p>
-
-                <div className="dropdown dropdown-left cursor-pointer">
+                {/* =================three dot ===================== */}
+                <div className="dropdown dropdown-left cursor-pointer pt-2">
                   <label tabIndex={0}>
                     <BsThreeDotsVertical />
                   </label>
